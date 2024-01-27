@@ -1,0 +1,11 @@
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Temp\SoulLinkUtil\SoulLinkUtil.deps.json
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Temp\SoulLinkUtil\SoulLinkUtil.dll
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.csproj.AssemblyReference.cache
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.GeneratedMSBuildEditorConfig.editorconfig
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.AssemblyInfoInputs.cache
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.AssemblyInfo.cs
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.csproj.CoreCompileInputs.cache
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.dll
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\refint\SoulLinkUtil.dll
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\ref\SoulLinkUtil.dll
+A:\ExileApi-Compiled-3.23.1.1\ExileApi-Compiled-3.23.1.1\Plugins\Source\SoulLinkUtil\obj\Debug\net8.0-windows\win-x64\SoulLinkUtil.sourcelink.json
