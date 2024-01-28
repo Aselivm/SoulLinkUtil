@@ -9,9 +9,8 @@ namespace SoulLinkUtil
 {
     public class SoulLinkUtil : BaseSettingsPlugin<SoulLinkUtilSettings>
     {
-        private static bool isSoulLinkOnCooldown = false;
-
-        private static readonly object cooldownLock = new object();
+        private static DateTime lastSoulLinkCastTime = DateTime.MinValue;
+        private static DateTime lastFlaskCastTime = DateTime.MinValue;
 
         public override bool Initialise() => true;
 
@@ -23,10 +22,20 @@ namespace SoulLinkUtil
                 {
                     foreach (var buff in entity.Buffs)
                     {
-
-                        if (IsSoulLinkReady(buff))
+                        if (IsSoulLinkReady(buff) && IsCooldownOver(lastSoulLinkCastTime))
                         {
-                            CastSoulLink();
+                            Input.KeyDown(Settings.CastKey.Value);
+                            lastSoulLinkCastTime = DateTime.Now;
+                            Task.Delay(50).Wait(); // Подождем немного
+                            Input.KeyUp(Settings.CastKey.Value);
+                        }
+
+                        if (IsFlaskReady(buff) && IsCooldownOver(lastFlaskCastTime))
+                        {
+                            Input.KeyDown(Settings.CastKey.Value);
+                            lastFlaskCastTime = DateTime.Now;
+                            Task.Delay(50).Wait(); // Подождем немного
+                            Input.KeyUp(Settings.CastKey.Value);
                         }
                     }
                 }
@@ -39,32 +48,13 @@ namespace SoulLinkUtil
             entity != null && entity.Buffs != null;
 
         private bool IsSoulLinkReady(Buff buff) =>
-            buff.Name == "soul_link_source" && buff.Timer < 4 && !isSoulLinkOnCooldown;
+            buff.Name == "soul_link_source" && buff.Timer < 4;
 
-        private void CastSoulLink()
-        {
-            Input.KeyDown(Settings.CastKey.Value);
-            SetCooldownTimer();
-        }
+        private bool IsFlaskReady(Buff buff) =>
+            buff.Name == "flask_effect_life";
 
-        private void SetCooldownTimer()
-        {
-            lock (cooldownLock)
-            {
-                isSoulLinkOnCooldown = true;
-            }
-
-            Task.Run(async () =>
-            {
-                await Task.Delay(TimeSpan.FromSeconds(2));
-
-                lock (cooldownLock)
-                {
-                    isSoulLinkOnCooldown = false;
-                }
-            });
-        }
-
+        private bool IsCooldownOver(DateTime lastCastTime) =>
+            (DateTime.Now - lastCastTime).TotalSeconds > Settings.TimeBetweenCasts;
 
         public override void Render()
         {
