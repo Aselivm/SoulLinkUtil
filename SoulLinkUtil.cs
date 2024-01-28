@@ -19,14 +19,17 @@ namespace SoulLinkUtil
         {
             foreach (var entity in GameController.Entities)
             {
-                var buffs = entity.Buffs;
-
-                foreach (var buff in buffs)
+                if (entity != null && entity.Buffs != null)
                 {
-                    if (buff.Name == "soul_link" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > 1)
+                    var buffs = entity.Buffs;
+
+                    foreach (var buff in buffs)
                     {
-                        CastSoulLink();
-                        lastSoulLinkCastTime = DateTime.Now;
+                        if (buff.Name == "soul_link" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > 1)
+                        {
+                            CastSoulLink();
+                            lastSoulLinkCastTime = DateTime.Now;
+                        }
                     }
                 }
             }
@@ -35,9 +38,9 @@ namespace SoulLinkUtil
         }
 
         private void CastSoulLink()
-    {
-        Input.KeyDown(Settings.CastKey.Value); 
-    }
+        {
+            Input.KeyDown(Settings.CastKey.Value);
+        }
 
         public override void Render()
         {
