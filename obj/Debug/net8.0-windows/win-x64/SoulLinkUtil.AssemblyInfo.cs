@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SoulLinkUtil")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+adc3d05e68859917e1deb2ec98f2b09443db7b83")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86a44694925e7533d0c75193ed6aff447deb2dd4")]
 [assembly: System.Reflection.AssemblyProductAttribute("SoulLinkUtil")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SoulLinkUtil")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

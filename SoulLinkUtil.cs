@@ -10,7 +10,6 @@ namespace SoulLinkUtil
     public class SoulLinkUtil : BaseSettingsPlugin<SoulLinkUtilSettings>
     {
         private static DateTime lastSoulLinkCastTime = DateTime.MinValue;
-        private static DateTime lastFlaskCastTime = DateTime.MinValue;
 
         public override bool Initialise() => true;
 
@@ -30,13 +29,6 @@ namespace SoulLinkUtil
                             Input.KeyUp(Settings.CastKey.Value);
                         }
 
-                        if (IsFlaskReady(buff) && IsCooldownOver(lastFlaskCastTime))
-                        {
-                            Input.KeyDown(Settings.CastKey.Value);
-                            lastFlaskCastTime = DateTime.Now;
-                            Task.Delay(50).Wait(); // Подождем немного
-                            Input.KeyUp(Settings.CastKey.Value);
-                        }
                     }
                 }
             }
@@ -49,9 +41,6 @@ namespace SoulLinkUtil
 
         private bool IsSoulLinkReady(Buff buff) =>
             buff.Name == "soul_link_source" && buff.Timer < 4;
-
-        private bool IsFlaskReady(Buff buff) =>
-            buff.Name == "flask_effect_life";
 
         private bool IsCooldownOver(DateTime lastCastTime) =>
             (DateTime.Now - lastCastTime).TotalSeconds > Settings.TimeBetweenCasts;
