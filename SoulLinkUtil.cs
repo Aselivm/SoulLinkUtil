@@ -3,6 +3,7 @@ using ExileCore.PoEMemory.Components;
 using ExileCore.PoEMemory.MemoryObjects;
 using SharpDX;
 using System;
+using System.Security.Cryptography.Pkcs;
 
 namespace SoulLinkUtil
 {
@@ -26,7 +27,7 @@ namespace SoulLinkUtil
                     foreach (var buff in buffs)
                     {
                         //Graphics.DrawText(buff.Name, new Vector2(500, 140));
-                        if (buff.Name == "soul_link" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > Settings.TimeBetweenCasts)
+                        if (buff.Name == "soul_link_source" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > Settings.TimeBetweenCasts)
                         {
                             CastSoulLink();
                             lastSoulLinkCastTime = DateTime.Now;
