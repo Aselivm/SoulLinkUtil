@@ -25,7 +25,8 @@ namespace SoulLinkUtil
 
                     foreach (var buff in buffs)
                     {
-                        if (buff.Name == "soul_link" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > 1)
+                        //Graphics.DrawText(buff.Name, new Vector2(500, 140));
+                        if (buff.Name == "soul_link" && buff.Timer < 4 && (DateTime.Now - lastSoulLinkCastTime).TotalSeconds > Settings.TimeBetweenCasts)
                         {
                             CastSoulLink();
                             lastSoulLinkCastTime = DateTime.Now;
