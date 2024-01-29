@@ -29,14 +29,19 @@ namespace SoulLinkUtil
             {
                 if (IsEntityValid(entity))
                 {
+                    var soulLinkBuff = entity.Buffs.FirstOrDefault(b => b.Name == "soul_link_source");
+
+                    if (soulLinkBuff == null)
+                    {
+                        ApplySoulLink();
+                        return null;
+                    }
+
                     foreach (var buff in entity.Buffs)
                     {
                         if (IsSoulLinkReady(buff) && IsCooldownOver(lastSoulLinkCastTime))
                         {
-                            Input.KeyDown(Settings.CastKey.Value);
-                            lastSoulLinkCastTime = DateTime.Now;
-                            Task.Delay(50).Wait(); // Подождем немного
-                            Input.KeyUp(Settings.CastKey.Value);
+                            ApplySoulLink();
                         }
 
                     }
@@ -45,6 +50,14 @@ namespace SoulLinkUtil
 
             return null;
 
+        }
+
+        private void ApplySoulLink()
+        {
+            Input.KeyDown(Settings.CastKey.Value);
+            lastSoulLinkCastTime = DateTime.Now;
+            Task.Delay(50).Wait(); // Подождем немного
+            Input.KeyUp(Settings.CastKey.Value);
         }
 
         private Entity GetFollowingTarget()
@@ -63,11 +76,9 @@ namespace SoulLinkUtil
             }
         }
 
-        private bool IsEntityValid(Entity entity) =>
-            entity != null && entity.Buffs != null;
+        private bool IsEntityValid(Entity entity) => entity != null && entity.Buffs != null;
 
-        private bool IsSoulLinkReady(Buff buff) =>
-            buff.Name == "soul_link_source" && buff.Timer < 4;
+        private bool IsSoulLinkReady(Buff buff) => buff.Timer < Settings.SoulLinkTimerThreshold.Value;
 
         private bool IsCooldownOver(DateTime lastCastTime) =>
             (DateTime.Now - lastCastTime).TotalSeconds > Settings.TimeBetweenCasts;
