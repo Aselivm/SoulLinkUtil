@@ -1,6 +1,8 @@
 ﻿using ExileCore;
 using ExileCore.PoEMemory.Components;
 using ExileCore.PoEMemory.MemoryObjects;
+using ExileCore.Shared.Nodes;
+using System.Linq;
 using SharpDX;
 using System;
 using System.Threading.Tasks;
@@ -15,6 +17,14 @@ namespace SoulLinkUtil
 
         public override Job Tick()
         {
+            var _followTarget = GetFollowingTarget();
+
+            if (_followTarget == null) return null;
+
+            var distanceFromFollower = Vector3.Distance(GameController.Player.Pos, _followTarget.Pos);
+
+            if (distanceFromFollower >= Settings.ClearPathDistance.Value) return null;
+
             foreach (var entity in GameController.Entities)
             {
                 if (IsEntityValid(entity))
@@ -34,6 +44,23 @@ namespace SoulLinkUtil
             }
 
             return null;
+
+        }
+
+        private Entity GetFollowingTarget()
+        {
+            var leaderName = Settings.LeaderName.Value.ToLower();
+            try
+            {
+                return GameController.Entities
+                    .Where(x => x.Type == ExileCore.Shared.Enums.EntityType.Player)
+                    .FirstOrDefault(x => x.GetComponent<Player>().PlayerName.ToLower() == leaderName);
+            }
+            // Sometimes we can get "Collection was modified; enumeration operation may not execute" exception
+            catch
+            {
+                return null;
+            }
         }
 
         private bool IsEntityValid(Entity entity) =>
