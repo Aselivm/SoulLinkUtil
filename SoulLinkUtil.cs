@@ -13,7 +13,7 @@ namespace SoulLinkUtil
     {
         private static DateTime lastSoulLinkCastTime = DateTime.MinValue;
 
-        public override bool Initialise() => true;
+        public override bool Initialise()=> true;
 
         public override Job Tick()
         {
@@ -25,31 +25,20 @@ namespace SoulLinkUtil
 
             if (distanceFromFollower >= Settings.ClearPathDistance.Value) return null;
 
-            foreach (var entity in GameController.Entities)
+            var soulLinkBuff = GameController.Player.Buffs.FirstOrDefault(b => b.Name == "soul_link_source");
+
+            if (soulLinkBuff == null && IsCooldownOver(lastSoulLinkCastTime))
             {
-                if (IsEntityValid(entity))
-                {
-                    var soulLinkBuff = entity.Buffs.FirstOrDefault(b => b.Name == "soul_link_source");
+                ApplySoulLink();
+                return null;
+            }
 
-                    if (soulLinkBuff == null)
-                    {
-                        ApplySoulLink();
-                        return null;
-                    }
-
-                    foreach (var buff in entity.Buffs)
-                    {
-                        if (IsSoulLinkReady(buff) && IsCooldownOver(lastSoulLinkCastTime))
-                        {
-                            ApplySoulLink();
-                        }
-
-                    }
-                }
+            if (IsSoulLinkReady(soulLinkBuff) && IsCooldownOver(lastSoulLinkCastTime))
+            {
+                ApplySoulLink();
             }
 
             return null;
-
         }
 
         private void ApplySoulLink()
@@ -75,8 +64,6 @@ namespace SoulLinkUtil
                 return null;
             }
         }
-
-        private bool IsEntityValid(Entity entity) => entity != null && entity.Buffs != null;
 
         private bool IsSoulLinkReady(Buff buff) => buff.Timer < Settings.SoulLinkTimerThreshold.Value;
 
